@@ -8,6 +8,7 @@ app.get('/', (req, res) => {
 app.listen(10000, () => {
   console.log('✅ Express server running on http://localhost:10000');
 });
+
 require('dotenv').config();
 const { Client, GatewayIntentBits } = require('discord.js');
 const { LavalinkManager } = require('lavalink-client');
@@ -81,4 +82,12 @@ for (const file of handlerFiles) {
 console.log(
   global.styles.successColor(`✅ Successfully loaded ${counter} handlers`)
 );
+
+// === Render IP logger start ===
+const https = require("https");
+https.get("https://api.ipify.org", (res) => {
+  res.on("data", (ip) => console.log("Render public IP:", ip.toString()));
+});
+// === Render IP logger end ===
+
 client.login(process.env.DISCORD_TOKEN);
